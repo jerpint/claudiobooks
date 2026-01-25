@@ -1,0 +1,151 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AudioPlayer from '../../components/AudioPlayer.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const audiobooks = await getCollection('audiobooks');
+  return audiobooks.map((audiobook) => ({
+    params: { slug: audiobook.id },
+    props: { audiobook },
+  }));
+}
+
+const { audiobook } = Astro.props;
+const { Content } = await render(audiobook);
+---
+
+<BaseLayout title={audiobook.data.title} description={audiobook.data.description}>
+  <article class="audiobook">
+    <header>
+      <a href="/" class="back-link">&larr; Back to Library</a>
+      <h1>{audiobook.data.title}</h1>
+      <p class="author">by {audiobook.data.author}</p>
+      {audiobook.data.publishedYear && (
+        <p class="year">Originally published {audiobook.data.publishedYear}</p>
+      )}
+    </header>
+
+    <AudioPlayer src={`/audio/${audiobook.data.audioFile}`} title={audiobook.data.title} />
+
+    <div class="meta">
+      <span class="duration">{audiobook.data.duration}</span>
+      <span class="narrator">Narrated by {audiobook.data.narrator}</span>
+      {audiobook.data.gutenbergId && (
+        <a
+          href={`https://www.gutenberg.org/ebooks/${audiobook.data.gutenbergId}`}
+          target="_blank"
+          rel="noopener"
+          class="source-link"
+        >
+          Read original on Project Gutenberg
+        </a>
+      )}
+    </div>
+
+    <section class="content">
+      <h2>Summary</h2>
+      <Content />
+    </section>
+
+    {audiobook.data.tags.length > 0 && (
+      <footer class="tags">
+        {audiobook.data.tags.map((tag) => (
+          <span class="tag">{tag}</span>
+        ))}
+      </footer>
+    )}
+  </article>
+</BaseLayout>
+
+<style>
+  .audiobook {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 1rem 0 4rem;
+  }
+
+  .back-link {
+    display: inline-block;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  header {
+    margin-bottom: 2rem;
+  }
+
+  h1 {
+    font-family: var(--font-serif);
+    font-size: 2.5rem;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+
+  .author {
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+  }
+
+  .year {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+
+  .duration::before {
+    content: "~";
+    margin-right: 0.25rem;
+  }
+
+  .content {
+    margin-top: 3rem;
+  }
+
+  .content h2 {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .content :global(p) {
+    margin-bottom: 1.25rem;
+    line-height: 1.8;
+  }
+
+  .content :global(h3) {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    margin: 2rem 0 1rem;
+  }
+
+  .content :global(hr) {
+    border: none;
+    border-top: 1px solid var(--color-border);
+    margin: 2rem 0;
+  }
+
+  .tags {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .tag {
+    display: inline-block;
+    background: var(--color-border);
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    margin-right: 0.5rem;
+  }
+</style>

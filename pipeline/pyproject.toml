@@ -1,0 +1,13 @@
+[project]
+name = "claudiobooks-pipeline"
+version = "0.1.0"
+description = "Content pipeline for Claudiobooks - fetch, summarize, and generate audiobooks"
+requires-python = ">=3.11"
+dependencies = [
+    "openai>=1.0.0",
+    "requests>=2.31.0",
+    "python-dotenv>=1.0.0",
+]
+
+[tool.uv]
+dev-dependencies = []

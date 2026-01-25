@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AudiobookCard from '../components/AudiobookCard.astro';
+import { getCollection } from 'astro:content';
+
+const audiobooks = await getCollection('audiobooks');
+const sortedAudiobooks = audiobooks.sort(
+  (a, b) => b.data.dateAdded.getTime() - a.data.dateAdded.getTime()
+);
+---
+
+<BaseLayout title="Library">
+  <section class="hero">
+    <h1>Claudiobooks</h1>
+    <p>Short-form audiobooks from the public domain, summarized and narrated by AI.</p>
+  </section>
+
+  <section class="library">
+    {sortedAudiobooks.length === 0 ? (
+      <p class="empty">No audiobooks yet. Check back soon!</p>
+    ) : (
+      <div class="audiobook-grid">
+        {sortedAudiobooks.map((audiobook) => (
+          <AudiobookCard
+            title={audiobook.data.title}
+            author={audiobook.data.author}
+            duration={audiobook.data.duration}
+            description={audiobook.data.description}
+            slug={audiobook.id}
+          />
+        ))}
+      </div>
+    )}
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    text-align: center;
+    padding: 3rem 0 4rem;
+  }
+
+  .hero h1 {
+    font-family: var(--font-serif);
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero p {
+    color: var(--color-text-muted);
+    font-size: 1.1rem;
+  }
+
+  .library {
+    padding-bottom: 4rem;
+  }
+
+  .audiobook-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .empty {
+    text-align: center;
+    color: var(--color-text-muted);
+    padding: 4rem 0;
+  }
+</style>

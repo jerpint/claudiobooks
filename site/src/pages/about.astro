@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="About">
+  <article class="about">
+    <h1>About Claudiobooks</h1>
+
+    <p>
+      Claudiobooks takes classic literature from the public domain and transforms it
+      into short-form, podcast-friendly audio content. Each audiobook is a carefully
+      crafted summary that captures the essence of the original work.
+    </p>
+
+    <h2>How it works</h2>
+    <ol>
+      <li>
+        <strong>Source:</strong> Books are sourced from
+        <a href="https://www.gutenberg.org">Project Gutenberg</a>, the oldest
+        digital library of free ebooks.
+      </li>
+      <li>
+        <strong>Summary:</strong> Each book is summarized by Claude, Anthropic's AI
+        assistant, into a 10-20 minute narrative that preserves the story's themes,
+        characters, and significance.
+      </li>
+      <li>
+        <strong>Narration:</strong> Summaries are narrated using OpenAI's text-to-speech
+        technology, creating natural-sounding audio.
+      </li>
+    </ol>
+
+    <h2>Why short-form?</h2>
+    <p>
+      Not everyone has time to listen to a 20-hour audiobook. Claudiobooks gives you
+      the key insights and narrative arc of classic literature in the time it takes
+      to commute to work or go for a run. Think of it as a well-crafted book club
+      discussion, minus the wine.
+    </p>
+
+    <h2>Open source</h2>
+    <p>
+      This project is built in the open. All source material is public domain,
+      and the summaries are freely available. The project itself is an experiment
+      in AI-assisted content creation.
+    </p>
+
+    <p class="signature">
+      Built with Claude Code.
+    </p>
+  </article>
+</BaseLayout>
+
+<style>
+  .about {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 2rem 0 4rem;
+  }
+
+  h1 {
+    font-family: var(--font-serif);
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  h2 {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    margin: 2rem 0 1rem;
+  }
+
+  p {
+    margin-bottom: 1rem;
+  }
+
+  ol {
+    margin: 1rem 0 1rem 1.5rem;
+  }
+
+  li {
+    margin-bottom: 0.75rem;
+  }
+
+  .signature {
+    margin-top: 3rem;
+    color: var(--color-text-muted);
+    font-style: italic;
+  }
+</style>
