@@ -2,7 +2,7 @@
 title: "Adventures of Huckleberry Finn"
 author: "Mark Twain"
 publishedYear: 1884
-duration: "18 minutes"
+duration: "10 minutes"
 audioFile: "adventures-of-huckleberry-finn.mp3"
 gutenbergId: 76
 description: "A boy and a runaway slave float down the Mississippi, and a conscience learns to defy society."
