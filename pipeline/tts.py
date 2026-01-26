@@ -2,8 +2,17 @@
 Generate audio from text using OpenAI TTS.
 
 Usage:
-    uv run tts.py <input_file> <output_file>
+    uv run tts.py <input_file> <output_file> [voice]
     uv run tts.py summary.txt output.mp3
+    uv run tts.py summary.txt output.mp3 nova
+
+Available voices:
+    onyx    - Deep, authoritative (default)
+    alloy   - Neutral, balanced
+    echo    - Warm, conversational
+    fable   - Expressive, British-ish
+    nova    - Friendly, upbeat
+    shimmer - Soft, gentle
 """
 
 import sys
@@ -114,6 +123,8 @@ def concat_audio_files(input_files: list[Path], output_path: Path):
     list_file.unlink()
 
 
+VOICES = ["onyx", "alloy", "echo", "fable", "nova", "shimmer"]
+
 if __name__ == "__main__":
     if len(sys.argv) < 3:
         print(__doc__)
@@ -121,12 +132,18 @@ if __name__ == "__main__":
 
     input_path = Path(sys.argv[1]).resolve()
     output_path = Path(sys.argv[2]).resolve()
+    voice = sys.argv[3] if len(sys.argv) > 3 else "onyx"
+
+    if voice not in VOICES:
+        print(f"Unknown voice: {voice}")
+        print(f"Available: {', '.join(VOICES)}")
+        sys.exit(1)
 
     # Ensure output directory exists
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
     text = input_path.read_text()
-    print(f"Generating audio for {len(text)} characters...")
+    print(f"Generating audio for {len(text)} characters with voice '{voice}'...")
 
-    generate_audio(text, output_path)
+    generate_audio(text, output_path, voice=voice)
     print(f"Audio saved to: {output_path}")

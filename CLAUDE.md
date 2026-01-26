@@ -143,3 +143,22 @@ cd pipeline && uv run tts.py summary.txt output.mp3
 - The owner prefers minimal interaction - be autonomous
 - When in doubt, create a PR and let them review
 - This project is about learning agents/subagents - experiment freely
+
+## IMPORTANT: Branch Workflow
+
+**NEVER work directly on main.** Always create a feature branch first:
+
+```bash
+git checkout -b add/<slug>  # for audiobooks
+git checkout -b fix/<issue>  # for fixes
+git checkout -b feat/<name>  # for features
+```
+
+Why: Multiple Claude sessions may run in parallel. Working on main causes conflicts.
+
+After finishing work:
+1. Commit to your branch
+2. Push and create a PR
+3. Let the owner merge
+
+The only commits to main should be PR merges.
