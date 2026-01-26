@@ -14,6 +14,7 @@ const { title, description = "Short-form audiobooks from the public domain" } = 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate" type="application/rss+xml" title="Claudiobooks Podcast Feed" href="/feed.xml" />
     <title>{title} | Claudiobooks</title>
     <style is:global>
       :root {
@@ -58,6 +59,7 @@ const { title, description = "Short-form audiobooks from the public domain" } = 
         <div class="nav-links">
           <a href="/">Library</a>
           <a href="/about">About</a>
+          <a href="/feed.xml" class="subscribe-link">Subscribe</a>
         </div>
       </nav>
     </header>
@@ -95,6 +97,11 @@ const { title, description = "Short-form audiobooks from the public domain" } = 
 
       .nav-links a {
         color: var(--color-text-muted);
+      }
+
+      .nav-links .subscribe-link {
+        color: var(--color-accent);
+        font-weight: 500;
       }
 
       main {
