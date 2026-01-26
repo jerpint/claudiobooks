@@ -27,6 +27,18 @@ claudiobooks/
 └── .github/workflows/    # CI runs on every PR
 ```
 
+## Mobile Workflow (GitHub Issues)
+
+The owner can request audiobooks from mobile using GitHub Issues:
+
+1. **Create issue** from GitHub mobile app using the "Add Audiobook" template
+   - Title: `Add: The Great Gatsby`
+   - Optionally include Gutenberg ID in body
+2. **Claude processes** - Run `/process-issues` to pick up pending requests
+3. **Review & merge** - PR appears, merge from GitHub mobile app
+
+Issues are labeled `audiobook-request` and auto-closed when the PR is created.
+
 ## Adding a New Audiobook
 
 This is the main workflow. When asked to add an audiobook:
