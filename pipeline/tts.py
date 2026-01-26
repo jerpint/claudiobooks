@@ -33,12 +33,12 @@ def generate_audio(
 
     if len(text) <= max_chars:
         # Single request
-        response = client.audio.speech.create(
+        with client.audio.speech.with_streaming_response.create(
             model=model,
             voice=voice,
             input=text,
-        )
-        response.stream_to_file(output_path)
+        ) as response:
+            response.stream_to_file(output_path)
     else:
         # Split into chunks at sentence boundaries
         chunks = split_into_chunks(text, max_chars)
@@ -49,12 +49,12 @@ def generate_audio(
             temp_path = output_path.parent / f"_temp_chunk_{i}.mp3"
             print(f"  Chunk {i+1}/{len(chunks)} ({len(chunk)} chars)...")
 
-            response = client.audio.speech.create(
+            with client.audio.speech.with_streaming_response.create(
                 model=model,
                 voice=voice,
                 input=chunk,
-            )
-            response.stream_to_file(temp_path)
+            ) as response:
+                response.stream_to_file(temp_path)
             temp_files.append(temp_path)
 
         # Concatenate chunks (requires ffmpeg)
@@ -119,8 +119,11 @@ if __name__ == "__main__":
         print(__doc__)
         sys.exit(1)
 
-    input_path = Path(sys.argv[1])
-    output_path = Path(sys.argv[2])
+    input_path = Path(sys.argv[1]).resolve()
+    output_path = Path(sys.argv[2]).resolve()
+
+    # Ensure output directory exists
+    output_path.parent.mkdir(parents=True, exist_ok=True)
 
     text = input_path.read_text()
     print(f"Generating audio for {len(text)} characters...")
