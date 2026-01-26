@@ -20,7 +20,7 @@ claudiobooks/
 │   │   ├── layouts/
 │   │   └── pages/
 │   └── public/
-│       └── audio/            # MP3 files (tracked with Git LFS)
+│       └── audio/            # MP3 files
 ├── pipeline/             # Python tools (use with `uv run`)
 │   ├── fetch.py          # Fetch books from Project Gutenberg
 │   └── tts.py            # Generate audio with OpenAI TTS
@@ -54,7 +54,13 @@ cd pipeline && uv run tts.py <summary_file> ../site/public/audio/<slug>.mp3
 ```
 Uses OpenAI TTS with the "onyx" voice (good for narration).
 
-### 4. Create the content file
+### 4. Get actual duration
+```bash
+ffprobe -v error -show_entries format=duration -of csv=p=0 site/public/audio/<slug>.mp3
+```
+Convert seconds to minutes (round to nearest minute) for the frontmatter.
+
+### 5. Create the content file
 Create `site/src/content/audiobooks/<slug>.md`:
 ```markdown
 ---
@@ -72,7 +78,7 @@ tags: ["fiction", "american literature"]
 [Full summary text here - this appears on the audiobook page]
 ```
 
-### 5. Create a PR
+### 6. Create a PR
 ```bash
 git checkout -b add/<slug>
 git add site/src/content/audiobooks/<slug>.md site/public/audio/<slug>.mp3
@@ -102,8 +108,9 @@ cd pipeline && uv run tts.py summary.txt output.mp3
 ## Environment
 
 - `.env` in project root contains `OPENAI_API_KEY` (not committed)
-- Audio files use Git LFS (auto-configured via `.gitattributes`)
+- Audio files stored directly in git (no LFS - Vercel doesn't support it)
 - Python deps managed with `uv` (see `pipeline/pyproject.toml`)
+- Will migrate audio to HuggingFace when library grows large
 
 ## Conventions
 

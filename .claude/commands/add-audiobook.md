@@ -36,10 +36,16 @@ When this skill is invoked:
    - Avoid academic jargon
 5. Save the summary to a temp file
 6. Generate audio: `cd pipeline && uv run tts.py <summary> ../site/public/audio/<slug>.mp3`
-7. Create the markdown file in `site/src/content/audiobooks/<slug>.md` with frontmatter
-8. Create a feature branch: `git checkout -b add/<slug>`
-9. Commit and push: `git add . && git commit -m "Add <title> audiobook" && git push -u origin add/<slug>`
-10. Create PR: `gh pr create --title "Add <title>" --body "..."`
+7. **Get actual duration** from the generated audio file:
+   ```bash
+   ffprobe -v error -show_entries format=duration -of csv=p=0 <audio_file>
+   ```
+   Convert seconds to human-readable format (e.g., "12 minutes")
+8. Create the markdown file in `site/src/content/audiobooks/<slug>.md` with frontmatter
+   - Use the actual duration from step 7 in the `duration` field
+9. Create a feature branch: `git checkout -b add/<slug>`
+10. Commit and push: `git add . && git commit -m "Add <title> audiobook" && git push -u origin add/<slug>`
+11. Create PR: `gh pr create --title "Add <title>" --body "..."`
 
 ## Summary Style Guide
 
