@@ -69,3 +69,15 @@ Key points:
 - Include key quotes sparingly
 - End with why it matters today
 - Close with "This has been [Book Title] by [Author]."
+
+## Important: TTS-Clean Text
+
+The summary text (markdown body) gets passed directly to TTS. Write it as **natural spoken text**:
+
+- Introducing the book, author, and year is great - just write it conversationally (e.g., "Published in 1818, Mary Shelley's Frankenstein...")
+- **NO markdown headers** like `### Chapter 1` - these get read aloud awkwardly
+- **Use `---` for section breaks** - TTS handles these as pauses
+- **NO URLs or links** - they get read character by character
+- **Avoid technical formatting** - no frontmatter syntax, bullet points, or special characters that don't speak naturally
+
+The frontmatter is a technical detail for the website. The body text is what gets narrated - write it as if someone will read it aloud word for word.
