@@ -56,7 +56,7 @@ When this skill is invoked:
 To create a podcast summary:
 1. Read the book text in chunks
 2. Write a podcast-style summary (see `/add-audiobook` for style guide)
-3. Generate audio: `cd pipeline && uv run tts.py <summary> /tmp/<output>.mp3 [voice]`
+3. Generate audio: `cd pipeline && uv run tts.py <summary> /tmp/<output>.mp3` (uses onyx voice by default)
 
 ## Notes
 

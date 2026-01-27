@@ -17,23 +17,21 @@ Examples:
 1. **Find the book** on Project Gutenberg (search if title given, fetch if ID)
 2. **Download and read** the full text
 3. **Write a summary** (2000-4000 words, podcast-friendly style)
-4. **Choose a voice** appropriate for the book's tone
-5. **Generate audio** using OpenAI TTS
-6. **Create content file** with proper frontmatter
-7. **Create a PR** for review
+4. **Generate audio** using OpenAI TTS with the onyx voice
+5. **Create content file** with proper frontmatter
+6. **Create a PR** for review
 
 ## Voice Selection
 
-Pick a voice that matches the book's character:
+**Always use the `onyx` voice.** It provides deep, authoritative narration that works well across all genres. This ensures consistency across the library.
 
-| Voice | Best for |
-|-------|----------|
-| onyx | Serious literature, philosophy, history |
-| alloy | General purpose, balanced |
-| echo | Warm stories, memoirs, conversations |
-| fable | British literature, fantasy, whimsical |
-| nova | Upbeat, adventure, young adult |
-| shimmer | Poetry, gentle stories, romance |
+Available voices (for reference only):
+- `onyx` - Deep, authoritative (default - use this one)
+- `alloy` - Neutral, balanced
+- `echo` - Warm, conversational
+- `fable` - Expressive, British-ish
+- `nova` - Friendly, upbeat
+- `shimmer` - Soft, gentle
 
 ## Instructions for Claude
 
