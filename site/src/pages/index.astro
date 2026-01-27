@@ -67,4 +67,27 @@ const sortedAudiobooks = audiobooks.sort(
     color: var(--color-text-muted);
     padding: 4rem 0;
   }
+
+  @media (max-width: 600px) {
+    .hero {
+      padding: 2rem 0;
+    }
+
+    .hero h1 {
+      font-size: 2rem;
+    }
+
+    .hero p {
+      font-size: 1rem;
+    }
+
+    .audiobook-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .library {
+      padding-bottom: 2rem;
+    }
+  }
 </style>
