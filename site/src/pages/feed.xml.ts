@@ -62,6 +62,12 @@ export const GET: APIRoute = async ({ site }) => {
     <pubDate>${mostRecentDate}</pubDate>
     <atom:link href="${siteUrl}feed.xml" rel="self" type="application/rss+xml"/>
 
+    <image>
+      <url>${siteUrl}podcast-cover.png</url>
+      <title>Claudiobooks</title>
+      <link>${siteUrl}</link>
+    </image>
+    <itunes:image href="${siteUrl}podcast-cover.png"/>
     <itunes:author>Claudiobooks</itunes:author>
     <itunes:summary>Short-form audiobooks from the public domain, summarized and narrated by AI. Classic literature condensed into 10-20 minute episodes.</itunes:summary>
     <itunes:type>episodic</itunes:type>
