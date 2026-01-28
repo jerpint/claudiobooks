@@ -7,6 +7,9 @@ const audiobooks = await getCollection('audiobooks');
 const sortedAudiobooks = audiobooks.sort(
   (a, b) => b.data.dateAdded.getTime() - a.data.dateAdded.getTime()
 );
+
+const feedUrl = 'https://claudiobooks.vercel.app/feed.xml';
+const encodedFeedUrl = encodeURIComponent(feedUrl);
 ---
 
 <BaseLayout title="Library">
@@ -14,6 +17,24 @@ const sortedAudiobooks = audiobooks.sort(
     <h1>Claudiobooks</h1>
     <p>Short-form audiobooks from the public domain, summarized and narrated by AI.</p>
   </section>
+
+  <div class="subscribe-row">
+    <span class="subscribe-label">For a better experience, listen on</span>
+    <div class="subscribe-apps">
+      <a href={`podcast://${feedUrl.replace('https://', '')}`} class="app-link" title="Apple Podcasts">
+        <svg viewBox="0 0 24 24" class="app-icon"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c2.76 0 5 2.24 5 5 0 1.86-1.03 3.47-2.54 4.32-.12-.87-.37-1.71-.74-2.49.78-.53 1.28-1.41 1.28-2.33 0-1.66-1.34-3-3-3s-3 1.34-3 3c0 .92.5 1.8 1.28 2.33-.37.78-.62 1.62-.74 2.49C7.03 13.47 6 11.86 6 10c0-2.76 2.24-5 5-5zm0 13c-1.52 0-2.87-.7-3.76-1.79.18-1.64.88-3.11 1.96-4.21.5.31 1.1.5 1.8.5s1.3-.19 1.8-.5c1.08 1.1 1.78 2.57 1.96 4.21-.89 1.09-2.24 1.79-3.76 1.79z"/></svg>
+        <span>Apple Podcasts</span>
+      </a>
+      <a href={`podcastaddict://subscribe/?url=${encodedFeedUrl}`} class="app-link" title="Podcast Addict">
+        <svg viewBox="0 0 24 24" class="app-icon"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+        <span>Podcast Addict</span>
+      </a>
+      <a href="/subscribe" class="app-link rss-link" title="More options">
+        <svg viewBox="0 0 24 24" class="app-icon"><path fill="currentColor" d="M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19 7.38 20 6.18 20C5 20 4 19 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.56 15.56 0 0 1 19.56 20h-2.83A12.73 12.73 0 0 0 4 7.27V4.44m0 5.66a9.9 9.9 0 0 1 9.9 9.9h-2.83A7.07 7.07 0 0 0 4 12.93V10.1z"/></svg>
+        <span>RSS</span>
+      </a>
+    </div>
+  </div>
 
   <section class="library">
     {sortedAudiobooks.length === 0 ? (
@@ -52,6 +73,52 @@ const sortedAudiobooks = audiobooks.sort(
     font-size: 1.1rem;
   }
 
+  .subscribe-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .subscribe-label {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+  }
+
+  .subscribe-apps {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .app-link {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.4rem 0.7rem;
+    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    color: var(--color-text);
+    font-size: 0.8rem;
+    transition: border-color 0.15s, background 0.15s;
+  }
+
+  .app-link:hover {
+    text-decoration: none;
+    border-color: var(--color-accent);
+    background: #fafafa;
+  }
+
+  .app-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .rss-link {
+    color: var(--color-text-muted);
+  }
+
   .library {
     padding-bottom: 4rem;
   }
@@ -79,6 +146,16 @@ const sortedAudiobooks = audiobooks.sort(
 
     .hero p {
       font-size: 1rem;
+    }
+
+    .subscribe-row {
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .subscribe-label {
+      width: 100%;
+      text-align: center;
     }
 
     .audiobook-grid {
