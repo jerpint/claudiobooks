@@ -1,0 +1,249 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const feedUrl = 'https://claudiobooks.vercel.app/feed.xml';
+const encodedFeedUrl = encodeURIComponent(feedUrl);
+
+const podcastApps = [
+  {
+    name: 'Apple Podcasts',
+    icon: '🎧',
+    url: `podcast://${feedUrl.replace('https://', '')}`,
+    description: 'iOS, macOS',
+    color: '#9933FF'
+  },
+  {
+    name: 'Podcast Addict',
+    icon: '🎵',
+    url: `podcastaddict://subscribe/?url=${encodedFeedUrl}`,
+    description: 'Android',
+    color: '#F4842D'
+  },
+  {
+    name: 'Spotify',
+    icon: '🟢',
+    url: null,
+    description: 'Coming soon',
+    color: '#1DB954'
+  }
+];
+---
+
+<BaseLayout title="Subscribe">
+  <div class="subscribe-page">
+    <h1>Subscribe to Claudiobooks</h1>
+    <p class="subtitle">Listen in your favorite podcast app</p>
+
+    <div class="apps-grid">
+      {podcastApps.map((app) => (
+        app.url ? (
+          <a href={app.url} class="app-card" style={`--app-color: ${app.color}`}>
+            <span class="app-icon">{app.icon}</span>
+            <div class="app-info">
+              <span class="app-name">{app.name}</span>
+              <span class="app-platform">{app.description}</span>
+            </div>
+          </a>
+        ) : (
+          <div class="app-card disabled" style={`--app-color: ${app.color}`}>
+            <span class="app-icon">{app.icon}</span>
+            <div class="app-info">
+              <span class="app-name">{app.name}</span>
+              <span class="app-platform">{app.description}</span>
+            </div>
+          </div>
+        )
+      ))}
+    </div>
+
+    <div class="manual-section">
+      <h2>Other Apps</h2>
+      <p>Copy the RSS feed URL and add it manually to any podcast app:</p>
+
+      <div class="rss-box">
+        <input
+          type="text"
+          value={feedUrl}
+          readonly
+          id="rss-url"
+          class="rss-input"
+        />
+        <button class="copy-btn" id="copy-btn">
+          Copy
+        </button>
+      </div>
+
+      <p class="rss-hint">
+        Look for "Add by URL" or "Add RSS Feed" in your podcast app's menu.
+      </p>
+    </div>
+
+  </div>
+
+  <script>
+    const copyBtn = document.getElementById('copy-btn');
+    const rssInput = document.getElementById('rss-url') as HTMLInputElement;
+
+    copyBtn?.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(rssInput.value);
+        copyBtn.textContent = 'Copied!';
+        setTimeout(() => {
+          copyBtn.textContent = 'Copy';
+        }, 2000);
+      } catch (err) {
+        // Fallback for older browsers
+        rssInput.select();
+        document.execCommand('copy');
+        copyBtn.textContent = 'Copied!';
+        setTimeout(() => {
+          copyBtn.textContent = 'Copy';
+        }, 2000);
+      }
+    });
+  </script>
+
+  <style>
+    .subscribe-page {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-family: var(--font-serif);
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      color: var(--color-text-muted);
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+    }
+
+    .apps-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .app-card {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem;
+      background: white;
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      transition: all 0.2s ease;
+      color: var(--color-text);
+    }
+
+    .app-card:hover:not(.disabled) {
+      text-decoration: none;
+      border-color: var(--app-color);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .app-card.disabled {
+      opacity: 0.6;
+      cursor: default;
+    }
+
+    .app-icon {
+      font-size: 1.75rem;
+    }
+
+    .app-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .app-name {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .app-platform {
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+    }
+
+    .manual-section {
+      background: white;
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .manual-section h2 {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .manual-section > p {
+      color: var(--color-text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .rss-box {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .rss-input {
+      flex: 1;
+      padding: 0.75rem;
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      background: var(--color-bg);
+      color: var(--color-text);
+    }
+
+    .copy-btn {
+      padding: 0.75rem 1.25rem;
+      background: var(--color-accent);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .copy-btn:hover {
+      background: var(--color-accent-light);
+    }
+
+    .rss-hint {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      margin-bottom: 0;
+    }
+
+    @media (max-width: 500px) {
+      h1 {
+        font-size: 1.75rem;
+      }
+
+      .apps-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .rss-box {
+        flex-direction: column;
+      }
+
+      .copy-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</BaseLayout>
