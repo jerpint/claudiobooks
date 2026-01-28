@@ -6,7 +6,7 @@ duration: "11 minutes"
 audioFile: "pride-and-prejudice.mp3"
 gutenbergId: 1342
 description: "A witty woman and a proud gentleman learn that first impressions can be dangerously wrong."
-dateAdded: 2025-01-27
+dateAdded: 2026-01-27
 tags: ["fiction", "romance", "classic", "british literature"]
 ---
 

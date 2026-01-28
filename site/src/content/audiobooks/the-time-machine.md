@@ -6,7 +6,7 @@ duration: "11 minutes"
 audioFile: "the-time-machine.mp3"
 gutenbergId: 35
 description: "A Victorian inventor journeys 800,000 years into the future—and discovers humanity's terrifying fate."
-dateAdded: 2025-01-27
+dateAdded: 2026-01-27
 tags: ["fiction", "science fiction", "classic", "dystopia"]
 ---
 
