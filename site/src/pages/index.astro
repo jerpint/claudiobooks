@@ -15,6 +15,12 @@ const sortedAudiobooks = audiobooks.sort(
     <p>Short-form audiobooks from the public domain, summarized and narrated by AI.</p>
   </section>
 
+  <a href="/subscribe" class="subscribe-banner">
+    <span class="subscribe-icon">🎧</span>
+    <span class="subscribe-text">Subscribe in your podcast app for new episodes</span>
+    <span class="subscribe-arrow">→</span>
+  </a>
+
   <section class="library">
     {sortedAudiobooks.length === 0 ? (
       <p class="empty">No audiobooks yet. Check back soon!</p>
@@ -52,6 +58,44 @@ const sortedAudiobooks = audiobooks.sort(
     font-size: 1.1rem;
   }
 
+  .subscribe-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    background: white;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    max-width: 400px;
+    margin: 0 auto 2rem;
+    color: var(--color-text);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .subscribe-banner:hover {
+    text-decoration: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  .subscribe-icon {
+    font-size: 1.1rem;
+  }
+
+  .subscribe-text {
+    font-size: 0.9rem;
+  }
+
+  .subscribe-arrow {
+    color: var(--color-text-muted);
+    transition: transform 0.2s;
+  }
+
+  .subscribe-banner:hover .subscribe-arrow {
+    transform: translateX(2px);
+  }
+
   .library {
     padding-bottom: 4rem;
   }
@@ -79,6 +123,15 @@ const sortedAudiobooks = audiobooks.sort(
 
     .hero p {
       font-size: 1rem;
+    }
+
+    .subscribe-banner {
+      max-width: 100%;
+      padding: 0.6rem 1rem;
+    }
+
+    .subscribe-text {
+      font-size: 0.85rem;
     }
 
     .audiobook-grid {
