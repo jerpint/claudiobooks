@@ -13,27 +13,6 @@ const podcastApps = [
     color: '#9933FF'
   },
   {
-    name: 'Overcast',
-    icon: '🟠',
-    url: `overcast://x-callback-url/add?url=${encodedFeedUrl}`,
-    description: 'iOS',
-    color: '#FC7E0F'
-  },
-  {
-    name: 'Castro',
-    icon: '🎙️',
-    url: `castro://subscribe/${feedUrl}`,
-    description: 'iOS',
-    color: '#00B265'
-  },
-  {
-    name: 'Pocket Casts',
-    icon: '🔴',
-    url: `pktc://subscribe/${feedUrl}`,
-    description: 'iOS, Android, Web',
-    color: '#F43E37'
-  },
-  {
     name: 'Podcast Addict',
     icon: '🎵',
     url: `podcastaddict://subscribe/?url=${encodedFeedUrl}`,
@@ -41,11 +20,11 @@ const podcastApps = [
     color: '#F4842D'
   },
   {
-    name: 'Downcast',
-    icon: '⬇️',
-    url: `downcast://${feedUrl}`,
-    description: 'iOS, macOS',
-    color: '#56C7AA'
+    name: 'Spotify',
+    icon: '🟢',
+    url: null,
+    description: 'Coming soon',
+    color: '#1DB954'
   }
 ];
 ---
@@ -57,13 +36,23 @@ const podcastApps = [
 
     <div class="apps-grid">
       {podcastApps.map((app) => (
-        <a href={app.url} class="app-card" style={`--app-color: ${app.color}`}>
-          <span class="app-icon">{app.icon}</span>
-          <div class="app-info">
-            <span class="app-name">{app.name}</span>
-            <span class="app-platform">{app.description}</span>
+        app.url ? (
+          <a href={app.url} class="app-card" style={`--app-color: ${app.color}`}>
+            <span class="app-icon">{app.icon}</span>
+            <div class="app-info">
+              <span class="app-name">{app.name}</span>
+              <span class="app-platform">{app.description}</span>
+            </div>
+          </a>
+        ) : (
+          <div class="app-card disabled" style={`--app-color: ${app.color}`}>
+            <span class="app-icon">{app.icon}</span>
+            <div class="app-info">
+              <span class="app-name">{app.name}</span>
+              <span class="app-platform">{app.description}</span>
+            </div>
           </div>
-        </a>
+        )
       ))}
     </div>
 
@@ -89,9 +78,6 @@ const podcastApps = [
       </p>
     </div>
 
-    <div class="coming-soon">
-      <p><strong>Spotify</strong> — Coming soon! (Requires directory registration)</p>
-    </div>
   </div>
 
   <script>
@@ -154,11 +140,16 @@ const podcastApps = [
       color: var(--color-text);
     }
 
-    .app-card:hover {
+    .app-card:hover:not(.disabled) {
       text-decoration: none;
       border-color: var(--app-color);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
       transform: translateY(-2px);
+    }
+
+    .app-card.disabled {
+      opacity: 0.6;
+      cursor: default;
     }
 
     .app-icon {
@@ -235,12 +226,6 @@ const podcastApps = [
       font-size: 0.85rem;
       color: var(--color-text-muted);
       margin-bottom: 0;
-    }
-
-    .coming-soon {
-      text-align: center;
-      color: var(--color-text-muted);
-      font-size: 0.9rem;
     }
 
     @media (max-width: 500px) {
