@@ -6,7 +6,7 @@ duration: "10 minutes"
 audioFile: "jekyll-and-hyde.mp3"
 gutenbergId: 43
 description: "A London doctor invents a potion that separates good from evil—and discovers the monster was inside him all along."
-dateAdded: 2025-01-27
+dateAdded: 2026-01-27
 tags: ["fiction", "gothic", "psychological", "horror"]
 ---
 

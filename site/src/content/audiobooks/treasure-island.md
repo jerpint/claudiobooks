@@ -6,7 +6,7 @@ duration: "12 minutes"
 audioFile: "treasure-island.mp3"
 gutenbergId: 120
 description: "A boy finds a pirate's treasure map and sails into adventure with the charming, treacherous Long John Silver."
-dateAdded: 2025-01-27
+dateAdded: 2026-01-27
 tags: ["fiction", "adventure", "pirates", "classic"]
 ---
 

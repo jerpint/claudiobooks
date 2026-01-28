@@ -6,7 +6,7 @@ duration: "11 minutes"
 audioFile: "candide.mp3"
 gutenbergId: 19942
 description: "A young optimist learns through war, earthquake, and betrayal that this may not be the best of all possible worlds."
-dateAdded: 2025-01-27
+dateAdded: 2026-01-27
 tags: ["fiction", "satire", "philosophy", "french literature"]
 ---
 

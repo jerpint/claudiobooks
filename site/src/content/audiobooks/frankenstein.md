@@ -6,7 +6,7 @@ duration: "10 minutes"
 audioFile: "frankenstein.mp3"
 gutenbergId: 84
 description: "A young scientist creates life from death—and learns the true cost of abandoning what we bring into the world."
-dateAdded: 2025-01-27
+dateAdded: 2026-01-27
 tags: ["fiction", "gothic", "horror", "science fiction"]
 ---
 
